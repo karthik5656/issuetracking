@@ -13,7 +13,6 @@ export const FetchEmployees = createAsyncThunk(
             console.log(err.response.data);
             return rejectWithValue(err.message);
         }
-        
 });
 
 
