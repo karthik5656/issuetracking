@@ -152,6 +152,17 @@ export const Issues = createSlice({
       state.loading = false;    
       state.error = action.payload.message;
     },
+    [GetIssueById.pending]: (state) => {
+      state.loading = true;
+    },
+    [GetIssueById.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+    },
+    [GetIssueById.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 

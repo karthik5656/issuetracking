@@ -36,10 +36,10 @@ export const AddEmployees = createAsyncThunk(
 
 export const GetEmployeeById = createAsyncThunk(
     "getEmployeeById",
-    async (issueId, {rejectWithValue}) => {
+    async (employeeId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `Get employe by id api?employeeById=${issueId}`
+                `Get employe by id api?empId=${employeeId}`
             );
             const result = await response.json();
             return result;
@@ -82,6 +82,20 @@ const employeeSlice = createSlice({
             (state, action) => {
                 state.isLoading = false;
                 state.data.push(action.payload);
+        });
+        builder.addCase(GetEmployeeById.pending, 
+            (state, action) => {
+                state.isLoading = true;
+        });
+        builder.addCase(GetEmployeeById.fulfilled, 
+            (state, action) => {
+                state.isLoading = false;
+                state.data = action.payload;
+        });
+        builder.addCase(GetEmployeeById.rejected, 
+            (state, action) => {
+                console.log("Error : ", action.payload);
+                state.isError =  true;
         });
         // builder.addCase(addEmployees.rejected, 
         //     (state, action) => {
